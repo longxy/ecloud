@@ -1,5 +1,10 @@
 package com.infosoul.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 /**
  * 用户实体类
  *
@@ -7,15 +12,25 @@ package com.infosoul.domain;
  * @version V1.0
  * @date 2016-11-04 11:14
  */
+@Entity
 public class User {
 
+    @Id
+    @GeneratedValue
     private Long id;
 
+    @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
     private Integer age;
 
     public User() {
+    }
+
+    public User(String name, Integer age) {
+        this.name = name;
+        this.age = age;
     }
 
     public Long getId() {
