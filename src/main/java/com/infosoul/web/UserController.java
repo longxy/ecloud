@@ -2,6 +2,7 @@ package com.infosoul.web;
 
 import com.infosoul.domain.User;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +19,7 @@ import java.util.*;
 @RequestMapping(value = "/users")
 public class UserController {
 
-    static Map<Long, User> users = Collections.synchronizedMap(new HashMap<Long, User>());
+    private static Map<Long, User> users = Collections.synchronizedMap(new HashMap<Long, User>());
 
     @ApiOperation(value = "获取用户列表", notes = "")
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -28,10 +29,9 @@ public class UserController {
     }
 
     @ApiOperation(value = "创建用户", notes = "根据User对象创建用户")
-    @ApiImplicitParam(name = "user", value = "用户详细实体User", required = true, dataType = "User")
+    @ApiImplicitParam(name = "user", value = "用户详细实体User", required = true, dataType = "User", paramType = "body")
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public String postUset(@ModelAttribute User user){
-        System.out.println("--创建用户--> " + users.get(user.getId()));
+    public String postUset(@RequestBody User user){
         users.put(user.getId(), user);
         return "success";
     }
@@ -40,13 +40,16 @@ public class UserController {
     @ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "Long", paramType = "path")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public User getUser(@PathVariable Long id){
-        System.out.println("---->" + users.get(id));
         return users.get(id);
     }
 
     @ApiOperation(value = "更新用户信息", notes = "根据url的id来指定更新的对象，并根据传过来的user信息来更新用户详细信息")
+    @ApiImplicitParams({
+        @ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "Long", paramType = "path"),
+            @ApiImplicitParam(name = "user", value = "用户详细实体User", required = true, dataType = "User", paramType = "body")
+    })
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public String putUser(@PathVariable Long id, @ModelAttribute User user){
+    public String putUser(@PathVariable Long id, @RequestBody User user){
         User u = users.get(id);
         u.setName(user.getName());
         u.setAge(user.getAge());
