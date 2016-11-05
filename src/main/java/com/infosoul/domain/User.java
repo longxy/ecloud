@@ -15,6 +15,9 @@ public class User {
 
     private Integer age;
 
+    public User() {
+    }
+
     public Long getId() {
         return id;
     }
