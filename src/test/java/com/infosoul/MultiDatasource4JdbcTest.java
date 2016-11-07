@@ -19,7 +19,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-public class MultiDatasourceTest {
+public class MultiDatasource4JdbcTest {
 
     @Autowired
     @Qualifier("primaryJdbcTemplate")
@@ -45,6 +45,10 @@ public class MultiDatasourceTest {
         // 往第二个数据库中插入一条数据
         jdbcTemplate2.update("INSERT INTO USER(id, name, age) VALUES(?, ?, ?)", 1, "aaa", 20);
 
+        // 查一下第一个数据源中是否有两条数据
         Assert.assertEquals("2", jdbcTemplate1.queryForObject("select count(1) from user", String.class));
+
+        // 查一下第一个数据源中是否有两条数据
+        Assert.assertEquals("1", jdbcTemplate2.queryForObject("select count(1) from user", String.class));
     }
 }
