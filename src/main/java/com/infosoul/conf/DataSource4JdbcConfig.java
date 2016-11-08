@@ -1,4 +1,4 @@
-package com.infosoul;
+package com.infosoul.conf;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
@@ -18,7 +18,7 @@ import javax.sql.DataSource;
  * @date 2016-11-05 15:42
  */
 @Configuration
-public class DataSourceConfig {
+public class DataSource4JdbcConfig {
 
     @Bean(name = "primaryDataSource")
     @Qualifier("primaryDataSource")
