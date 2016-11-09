@@ -3,7 +3,6 @@ package com.infosoul.conf;
 import com.infosoul.domain.Person;
 import com.infosoul.redis.RedisObjectSerializer;
 import com.sun.org.apache.xpath.internal.operations.String;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
